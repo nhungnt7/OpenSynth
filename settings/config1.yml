@@ -1,0 +1,21 @@
+data:
+  chunks: "/home/misa-nlp/work/ntnhung/openai-magpie/data/chunks" # folder saving your pretraining. Format: {"id": id, "text": the text}
+  instrutions: "/home/misa-nlp/work/ntnhung/openai-magpie/data/instrutions" # folder saving the temperature instructions
+  responses: "/home/misa-nlp/work/ntnhung/openai-magpie/data/responses" # folder saving the temperature respective response
+  sft_data: "/home/misa-nlp/work/ntnhung/openai-magpie/data/sft_data" # folder saving the final syntheic data
+domain: economic # put the domain of your data here
+output_language: Vietnamese  # language of synthetic data
+instruction_requirements: "" # additional requirements about content. None would use the default settings.
+response_requirements: "" # additional requirements about content. None would use the default settings.
+number_questions_per_openai_call: 1
+number_questions_per_chunk: 2 # total questions/chunks <= number_questions_per_openai_call * number_questions_per_chunk. The more number_questions_per_chunk, the more diversity of tasks. <10 is recommended.
+filters:
+  instruction_length: 10 # number of instruction characters
+  instruction_quality: 2 # 'very poor': 0, 'poor': 1, 'average': 2, 'good': 3, 'excellent': 4. Average is recommended.
+  instruction_difficulty: 2 # 'very easy': 0, 'easy': 1, 'moderate': 2, 'difficult': 3, 'very difficult': 4. Morderate is recommended.
+  response_length: 10 # number of answer characters
+  response_length_over_document: 0 # ratio length(output)/length(document)
+  response_quality: 3 # 'very poor': 0, 'poor': 1, 'average': 2, 'good': 3, 'excellent': 4. Good is recommended.
+filter_instructions_first: True # Filter instructions before synthesize responses
+llm: gpt-4o-mini # llms name
+batch_size: 5 # number of samples are synthesized at the same time.
