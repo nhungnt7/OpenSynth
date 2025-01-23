@@ -113,4 +113,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-**If you find this tool useful, don't forget to give me 1 star 🌟.
+If you find this tool useful, don't forget to give me 1 star 🌟.
