@@ -76,17 +76,15 @@ async def synthesize_response(file_name, batch_size=settings.CONF['batch_size'])
     ]
 
     # Process tasks in batches
-    results = []
+    os.makedirs(os.path.dirname(responses_file), exist_ok=True)
+
     for i in tqdm(range(0, len(tasks), batch_size), desc="Synthesizing responses"):
         batch_tasks = tasks[i:i+batch_size]
         batch_results = await asyncio.gather(*batch_tasks)
-        results.extend(filter(None, batch_results))  # Filter out any None results
 
-    # Batch write results to the file
-    os.makedirs(os.path.dirname(responses_file), exist_ok=True)
-    with open(responses_file, mode='a', encoding='utf-8') as file:
-        for result in results:
-            json.dump(result, file, ensure_ascii=False)
-            file.write('\n')
+        with open(responses_file, mode='a', encoding='utf-8') as file:
+            for result in batch_results:
+                json.dump(result, file, ensure_ascii=False)
+                file.write('\n')
 
     print(f"Responses have been saved to {responses_file}")

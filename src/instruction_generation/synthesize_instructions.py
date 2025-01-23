@@ -93,18 +93,15 @@ async def synthesize_instruction(file_name, batch_size=settings.CONF['batch_size
     ]
 
     # Process in batches
-    results = []
+    os.makedirs(os.path.dirname(instructions_file), exist_ok=True)
     for i in tqdm(range(0, len(tasks), batch_size), desc="Synthesizing instructions"):
         batch_tasks = tasks[i:i+batch_size]
         batch_results = await asyncio.gather(*batch_tasks)
-        for result in batch_results:
-            results.extend(result)
 
-    # Write all results to file at once
-    os.makedirs(os.path.dirname(instructions_file), exist_ok=True)
-    with open(instructions_file, 'a', encoding='utf-8') as file:
-        for result in results:
-            json.dump(result, file, ensure_ascii=False)
-            file.write('\n')
+        with open(instructions_file, 'a', encoding='utf-8') as file:
+            for samples in batch_results:
+                for sample in samples:
+                    json.dump(sample, file, ensure_ascii=False)
+                    file.write('\n')
 
     print(f"Instructions have been saved to {instructions_file}")
