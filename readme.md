@@ -110,3 +110,7 @@ Your efficient and high-quality domain-specific synthetic data generation pipeli
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**If you find this tool useful, don't forget to give me 1 star 🌟.
