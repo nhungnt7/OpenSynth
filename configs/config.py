@@ -17,8 +17,3 @@ class Config:
 def set_config(args=None):
     global settings
     settings = Config(args)
-
-if __name__ == "__main__":
-    set_config()
-    for key, value in settings.INSTRUCTIONS.items():
-        print(key, value)

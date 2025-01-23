@@ -46,19 +46,3 @@ class FilteringMetrics():
         if output_quality not in ['very poor', 'poor', 'average', 'good', 'excellent']:
             output_quality = 'average'
         return output_quality
-
-if __name__ == "__main__":
-    from dotenv import load_dotenv
-    load_dotenv(override=True)
-    filter = FilteringMetrics()
-    input = "What is the capital of France?"
-    output = "The capital of France is Paris."
-    document = "France is a country located in Western Europe. Its capital is Paris."
-    question = "What is the capital of France?"
-    response = "The capital of France is Paris."
-    knowledge = "France is a country located in Western Europe. Its capital is Paris."
-    print(filter.get_input_length(input))
-    print(filter.get_ouput_length(output))
-    print(filter.get_ouput_length_ratio(output, document))
-    print(asyncio.run(filter.get_instruction_quality_and_difficulty(input)))
-    print(asyncio.run(filter.get_response_quality(question, response, knowledge)))

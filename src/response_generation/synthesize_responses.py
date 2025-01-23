@@ -88,9 +88,3 @@ async def synthesize_response(file_name, batch_size=settings.CONF['batch_size'])
         await asyncio.gather(*batch_tasks)
 
     print(f"Responses have been saved to {responses_file}")
-
-if __name__ == "__main__":
-    # asyncio.run(synthesize_sft(batch_size=5))
-    from dotenv import load_dotenv
-    load_dotenv(override=True)
-    asyncio.run(synthesize_response(file_name='pretraining.jsonl'))

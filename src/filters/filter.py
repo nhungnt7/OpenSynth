@@ -7,7 +7,6 @@ import os
 from configs.config import settings
 
 def filter_instruction(instruction, params=settings.CONF['filters']):
-    filtered_data = []
     instruction_quality = {'very poor': 0, 'poor': 1, 'average': 2, 'good': 3, 'excellent': 4}
     instruction_difficulty = {'very easy': 0, 'easy': 1, 'moderate': 2, 'difficult': 3, 'very difficult': 4}
 
@@ -57,6 +56,9 @@ def filter_responses(file_name, params=settings.CONF['filters']):
     response_quality = {'very poor': 0, 'poor': 1, 'average': 2, 'good': 3, 'excellent': 4}
 
     responses_file = os.path.join(settings.CONF['data']['responses'], file_name)
+    if not os.path.exists(responses_file):
+        raise FileNotFoundError(f"File {responses_file} not found. No instructions met the filter criterias. Recommendation: Please consider lowering the filter thresholds or adjusting your prompt to better match the data. OR SET filter_instructions_first = FALSE in your config file  to continue")
+    
     # Open and read the JSONL file
     with open(responses_file, 'r', encoding='utf-8') as file:
         for line in file:
@@ -97,19 +99,3 @@ def filter_responses(file_name, params=settings.CONF['filters']):
             file.write('\n') 
 
     return f"Processing Done. Please check your synthetic data in {sft_file}"
-
-# Example usage
-if __name__ == "__main__":
-    file_path = "pretraining.jsonl"  # Path to your JSONL file
-
-    # Define filtering parameters
-    # params = {
-    #     'instruction_quality': 'good',  # Filter for these quality values
-    #     'instruction_difficulty': 'moderate',       # Only include moderate difficulty
-    #     'response_length_over_document': 0.1  # Range filter for numeric values
-    # }
-
-    # Call the filtering function
-    result = filter_jsonl(file_path)
-
-    print(result)

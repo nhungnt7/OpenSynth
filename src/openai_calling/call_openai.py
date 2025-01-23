@@ -1,8 +1,10 @@
-from openai import OpenAI
 import json
-from datetime import datetime
+import os
 
+from openai import OpenAI
+from datetime import datetime
 class OpenAIGenerator():
+    
     def __init__(self, model = "gpt-4o-mini") -> None:
         """
          Initialize OpenAI.
@@ -32,23 +34,12 @@ class OpenAIGenerator():
                 "completion_tokens": usage["completion_tokens"],
                 "prompt_tokens": usage["prompt_tokens"]
             }
+            # Check if the 'logs' directory exists, if not, create it
+            if not os.path.exists("logs"):
+                os.makedirs("logs")
+
             with open("logs/openai_usages.jsonl", 'a') as f:
                 json.dump(log_entry, f)
                 f.write("\n")
             
             return answer
-
-if __name__ == "__main__":
-    from configs.config import set_config
-    set_config()
-    from dotenv import load_dotenv
-    load_dotenv(override=True)
-
-    client = OpenAIGenerator()
-    messages = [
-            {
-                "role": "user",
-                "content": "Hello, this is a test response."
-            }
-        ]
-    print(client.call_openai(messages))
