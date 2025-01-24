@@ -68,7 +68,7 @@ async def process_chunk(
 async def synthesize_instruction(file_name, batch_size=settings.CONF['batch_size']):
     openai_client = OpenAIGenerator(settings.CONF['llm'])
     filtering_metrics = FilteringMetrics()
-    instructions_file = os.path.join(settings.CONF['data']['instrutions'], file_name)
+    instructions_file = os.path.join(settings.CONF['data']['instructions'], file_name)
     chunks_file = os.path.join(settings.CONF['data']['chunks'], file_name)
     
     # Track processed chunks

@@ -4,7 +4,7 @@ import asyncio
 from tqdm import tqdm 
 
 async def main():
-    total_files = get_relative_jsonl_paths(settings.CONF['data']['chunks'])
+    total_files = get_relative_jsonl_paths(settings.CONF['data']['instructions'])
     for file in tqdm(total_files, desc="Processing files", unit="file"):
         print(f"Processing {file}")
         # await synthesize_instruction(file)
