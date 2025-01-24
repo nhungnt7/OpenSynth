@@ -1,6 +1,6 @@
 data:
   chunks: "data/chunks" # folder saving your pretraining. Format: {"id": id, "text": the text}
-  instrutions: "data/instrutions" # folder saving the temperature instructions
+  instructions: "data/instructions" # folder saving the temperature instructions
   responses: "data/responses" # folder saving the temperature respective responses
   sft_data: "data/sft_data" # folder saving the final syntheic data
 
