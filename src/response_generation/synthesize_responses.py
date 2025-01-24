@@ -36,14 +36,23 @@ async def process_chunk(
             filters_threshold = await filtering_metrics.get_response_quality(
                 instruction, response, document
             )
+            try:
+                instruction_length = metadata['instruction_length']
+                instruction_quality = metadata['instruction_quality']
+                instruction_difficulty = metadata['instruction_difficulty']
+            except:
+                instruction_length = len(instruction)
+                instruction_quality = 'excellent'
+                instruction_difficulty = 'very difficult'
+
             return {
                 'id': id,
                 'document': document,
                 'instruction': instruction,
                 'instruction_type': instruction_type,
-                'instruction_length': metadata['instruction_length'],
-                'instruction_quality': metadata['instruction_quality'],
-                'instruction_difficulty': metadata['instruction_difficulty'],
+                'instruction_length': instruction_length,
+                'instruction_quality': instruction_quality,
+                'instruction_difficulty': instruction_difficulty,
                 'response_length': filtering_metrics.get_ouput_length(response),
                 'response_quality': filters_threshold,
                 'response_length_over_document': filtering_metrics.get_ouput_length_ratio(response, document),

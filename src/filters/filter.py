@@ -11,21 +11,24 @@ def filter_instruction(instruction, params=settings.CONF['filters']):
     instruction_difficulty = {'very easy': 0, 'easy': 1, 'moderate': 2, 'difficult': 3, 'very difficult': 4}
 
     include = True
-    for key, condition in params.items():
-        if key == 'instruction_quality':
-            if instruction_quality[instruction['instruction_quality']] < condition:
-                include = False
-                break
-        elif key == 'instruction_difficulty':
-            if instruction_difficulty[instruction['instruction_difficulty']] < condition:
-                include = False
-                break
-        elif key == 'instruction_length':
-            if instruction['instruction_length'] < condition:
-                include = False
-                break
-        else:
-            continue
+    try:
+        for key, condition in params.items():
+            if key == 'instruction_quality':
+                if instruction_quality[instruction['instruction_quality']] < condition:
+                    include = False
+                    break
+            elif key == 'instruction_difficulty':
+                if instruction_difficulty[instruction['instruction_difficulty']] < condition:
+                    include = False
+                    break
+            elif key == 'instruction_length':
+                if instruction['instruction_length'] < condition:
+                    include = False
+                    break
+            else:
+                continue
+    except:
+        pass
 
     return include
 

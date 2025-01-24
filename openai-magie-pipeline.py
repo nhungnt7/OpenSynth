@@ -7,9 +7,9 @@ async def main():
     total_files = get_relative_jsonl_paths(settings.CONF['data']['chunks'])
     for file in tqdm(total_files, desc="Processing files", unit="file"):
         print(f"Processing {file}")
-        await synthesize_instruction(file)
+        # await synthesize_instruction(file)
         await synthesize_response(file)
-        filter_responses(file)        
+        # filter_responses(file)        
 
 if __name__ == "__main__":
     # load hyper-params
